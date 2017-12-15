@@ -1,65 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Animal Buttons</title>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- view port tag-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> <!-- bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!--jquery cdn-->
+    <script type="text/javascript" src="javascript.js"></script>
+
+
+  <title>Gifs!</title>
+
 </head>
 
 <body>
-  <button data-animal="cat">meow</button>
-  <button data-animal="dog">woof</button>
-  <button data-animal="bird">chirp</button>
-  <div id="gifs-appear-here">
+
+  <nav class="navbar fixed-top navbar-dark bg-primary">
+  <a class="navbar-brand">Gifs! The things you want to see...</a>
+
+
+</nav>
+<br>
+<br>
+<br>
+
+
+  <form>
+
+
+
+
+     <div class="row">
+      <div class="col-3 offset-1">
+        <input type="text" class="form-control" id="interests-input" placeholder="What gifs do you want to see?">
+      </div>
+    </form>
+      <div class="col-3">
+        <button type="button" class="btn btn-success active selector" id="submit">Submit</button>
+      </div>
+        <div class="col-5"></div>    
+      </div>
+      <br>
+
+      <div class="row">
+      <div class="offset-1 col-10 d-flex flex-wrap" id="buttonmoon">
+<!-- 
+    <button type="button" class="btn btn-primary m-1 active border border-dark">Primary</button>
+    <button type="button" class="btn btn-success m-1 active border border-dark">Second</button>
+    <button type="button" class="btn btn-info m-1 active border border-dark">Turd</button>
+      <button type="button" class="btn btn-warning m-1 active border border-dark">Fourth</button>
+      <button type="button" class="btn btn-danger m-1 active border border-dark">Fifth</button> -->
+
+
+    </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    // Adding click event listen listener to all buttons
-    $("button").on("click", function() {
-      // Grabbing and storing the data-animal property value from the button
-      var animal = $(this).attr("data-animal");
 
-      // Constructing a queryURL using the animal name
-      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        animal + "&api_key=dc6zaTOxFJmzC&limit=10";
+  <div class="row">
 
-      // Performing an AJAX request with the queryURL
-      $.ajax({
-          url: queryURL,
-          method: "GET"
-        })
-        // After data comes back from the request
-        .done(function(response) {
-          console.log(queryURL);
+  <div class="col-12" id="display">
+    
 
-          console.log(response);
-          // storing the data from the AJAX request in the results variable
-          var results = response.data;
 
-          // Looping through each result item
-          for (var i = 0; i < results.length; i++) {
 
-            // Creating and storing a div tag
-            var animalDiv = $("<div>");
 
-            // Creating a paragraph tag with the result item's rating
-            var p = $("<p>").text("Rating: " + results[i].rating);
 
-            // Creating and storing an image tag
-            var animalImage = $("<img>");
-            // Setting the src attribute of the image to a property pulled off the result item
-            animalImage.attr("src", results[i].images.fixed_height.url);
 
-            // Appending the paragraph and image tag to the animalDiv
-            animalDiv.append(p);
-            animalDiv.append(animalImage);
+  </div>
 
-            // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
-            $("#gifs-appear-here").prepend(animalDiv);
-          }
-        });
-    });
-  </script>
+  </div>
+
+
+<nav class="navbar fixed-bottom navbar-dark justify-content-center bg-primary">
+  <a class="navbar-brand">Mike Fields &copy 2017</a>
+</nav>
+
+
 </body>
-
 </html>
