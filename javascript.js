@@ -37,7 +37,7 @@ for (var i = 0; i < gifs.interests.length ; i++) {
 
 
         // 3. Then give each "letterBtn" the following classes: "letter-button" "letter" "letter-button-color".
-        Btn.addClass(gifs.btnStyle[gifs.btnCycle]).attr("data-interest", gifs.interests[i]).attr("data-type", "still").text(gifs.interests[i]);
+        Btn.addClass(gifs.btnStyle[gifs.btnCycle]).attr("data-interest", gifs.interests[i]).text(gifs.interests[i]);
 
           console.log("btn cycle: " + gifs.btnCycle);
 
@@ -102,6 +102,10 @@ bringGifs: function() {
     $(".remove").on("click", function() {
 
       event.preventDefault();
+      $(".img").remove();
+
+      // $("#display").remove();
+
 
       var search = $(this).attr("data-interest");
 
@@ -110,16 +114,39 @@ bringGifs: function() {
           method: "GET"
         }).done(function(response) {
           for (i=0; i < response.data.length; i++) {
-        console.log(response.data[i].images.original.url);
-        $("#display").append("<img src="+ response.data[i].images.original.url +"/>")
+        console.log(response.data[i]);
+        var img = $("<img src='" + response.data[i].images.fixed_height_still.url +"'/>")
+        img.addClass("img").attr("data-type", "still").attr("data-still", response.data[i].images.fixed_height_still.url).attr("data-animate", response.data[i].images.fixed_height.url );
+        $("#display").append(img);
 }});
 
 
 
+})},
+
+
+animate: function() {
+
+$(document).on("click", ".img", function() { //as images have been created dynamically listener needs to be assigned to document
+      event.preventDefault();
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var type = $(this).attr("data-type");
+      console.log(type);
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (type === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-type", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-type", "still");
+      }
+    });
 
 
 
-})}
+}
 
 
 
@@ -129,8 +156,12 @@ bringGifs: function() {
 
  //end of document ready
 
-gifs.addInterest();
+
 gifs.onStart();
+gifs.addInterest();
+gifs.animate();
+
+
 // gifs.bringGifs();
 
 }); //end of document ready
