@@ -8,7 +8,7 @@ interests: ["batman", "superman", "the tick", "deadpool"],
 newInterest: "",
 
 btnStyle: ["btn btn-primary m-1 active border border-dark remove", "btn btn-success m-1 active border border-dark remove", "btn btn-info m-1 active border border-dark remove", "btn btn-warning m-1 active border border-dark remove", "btn btn-danger m-1 active border border-dark remove" ],
-
+//array to allow different style buttons to be made dynamically
 
 btnCycle: 0,
 
@@ -18,25 +18,22 @@ onStart: function(){
 
 for (var i = 0; i < gifs.interests.length ; i++) {
 
-        // Inside the loop.
 
 
-        // 2. Create a variable named "letterBtn" equal to $("<button>");
+
+        // Create a variable named "letterBtn" equal to $("<button>");
         var Btn = $("<button>");
 
              if(gifs.btnCycle === gifs.btnStyle.length ) {
               
               gifs.btnCycle = 0;
 
-              console.log("make it 0");
+            //if the number of buttons is more than the stylings in the array reset to thw start of the array
 
             };
 
-            // search on blank
-            // still or moving attribute
 
-
-        // 3. Then give each "letterBtn" the following classes: "letter-button" "letter" "letter-button-color".
+        //add class to make different button styles, set data attribute for comparison to correct answer later, label button
         Btn.addClass(gifs.btnStyle[gifs.btnCycle]).attr("data-interest", gifs.interests[i]).text(gifs.interests[i]);
 
           console.log("btn cycle: " + gifs.btnCycle);
@@ -46,12 +43,12 @@ for (var i = 0; i < gifs.interests.length ; i++) {
    
       
 
-        // 4. Then give each "letterBtn" a data-attribute called "data-letter".
-         $("#buttonmoon").append(Btn);
+      
+         $("#buttonmoon").append(Btn); //append each button to the display area
 
 };
 
-           gifs.bringGifs();
+           gifs.bringGifs(); //rpevents the necessity to call the function outside the object
 
 
 },
@@ -66,7 +63,7 @@ $("#submit").on("click", function() {
     event.preventDefault();
 
 
-if ( $("#interests-input").val().trim() === ""){
+if ( $("#interests-input").val().trim() === ""){ //prevent buttons being made with no values
 
 $("#interests-input").val("");
 return;
@@ -78,13 +75,12 @@ return;
 gifs.newInterest = $("#interests-input").val().trim().toLowerCase();
 
 gifs.interests.push(gifs.newInterest);
-gifs.interests = $.unique(gifs.interests);
+gifs.interests = $.unique(gifs.interests); //prevent repeat buttons being made
 
-console.log("new " + gifs.interests);
 
 $("#interests-input").val("");
 
-$(".remove").remove();
+$(".remove").remove(); //remove the existing buttons before generating more, or they will multiply
 
 
 gifs.onStart();
@@ -102,7 +98,7 @@ bringGifs: function() {
     $(".remove").on("click", function() {
 
       event.preventDefault();
-      $(".img").remove();
+      $(".img").remove(); //remove all existing gifss
 
       // $("#display").remove();
 
@@ -167,103 +163,3 @@ gifs.animate();
 }); //end of document ready
 
 
-
- //end 0f document ready
-
-// // Adding click event listen listener to all buttons
-//     $("button").on("click", function() {
-//       // Grabbing and storing the data-animal property value from the button
-//       var animal = $(this).attr("data-animal");
-
-//       // Constructing a queryURL using the animal name
-//       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-//         animal + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-//       // Performing an AJAX request with the queryURL
-//       $.ajax({
-//           url: queryURL,
-//           method: "GET"
-//         })
-//         // After data comes back from the request
-//         .done(function(response) {
-//           console.log(queryURL);
-
-//           console.log(response);
-//           // storing the data from the AJAX request in the results variable
-//           var results = response.data;
-
-//           // Looping through each result item
-//           for (var i = 0; i < results.length; i++) {
-
-//             // Creating and storing a div tag
-//             var animalDiv = $("<div>");
-
-//             // Creating a paragraph tag with the result item's rating
-//             var p = $("<p>").text("Rating: " + results[i].rating);
-
-//             // Creating and storing an image tag
-//             var animalImage = $("<img>");
-//             // Setting the src attribute of the image to a property pulled off the result item
-//             animalImage.attr("src", results[i].images.fixed_height.url);
-
-//             // Appending the paragraph and image tag to the animalDiv
-//             animalDiv.append(p);
-//             animalDiv.append(animalImage);
-
-//             // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
-//             $("#gifs-appear-here").prepend(animalDiv);
-//           }
-//         });
-//     });
-
-
-//     var interests = ["Cats", "Harry Kane", "Pineapples", "Longboards"]
-
-
-
-
-//     // Adding click event listen listener to all buttons
-//     $("button").on("click", function() {
-//       // Grabbing and storing the data-animal property value from the button
-//       var animal = $(this).attr("data-animal");
-
-//       // Constructing a queryURL using the animal name
-//       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-//         animal + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-//       // Performing an AJAX request with the queryURL
-//       $.ajax({
-//           url: queryURL,
-//           method: "GET"
-//         })
-//         // After data comes back from the request
-//         .done(function(response) {
-//           console.log(queryURL);
-
-//           console.log(response);
-//           // storing the data from the AJAX request in the results variable
-//           var results = response.data;
-
-//           // Looping through each result item
-//           for (var i = 0; i < results.length; i++) {
-
-//             // Creating and storing a div tag
-//             var animalDiv = $("<div>");
-
-//             // Creating a paragraph tag with the result item's rating
-//             var p = $("<p>").text("Rating: " + results[i].rating);
-
-//             // Creating and storing an image tag
-//             var animalImage = $("<img>");
-//             // Setting the src attribute of the image to a property pulled off the result item
-//             animalImage.attr("src", results[i].images.fixed_height.url);
-
-//             // Appending the paragraph and image tag to the animalDiv
-//             animalDiv.append(p);
-//             animalDiv.append(animalImage);
-
-//             // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
-//             $("#gifs-appear-here").prepend(animalDiv);
-//           }
-//         });
-//     });
